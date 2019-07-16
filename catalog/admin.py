@@ -32,5 +32,5 @@ admin.site.register(Illness, IllnessAdmin)
 
 @admin.register(Treatment_record)
 class Treatment_record_Admin(admin.ModelAdmin):
-    pass
+    list_display = ('date', 'patient')
 
