@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>病歷管理Home Page</h1>
+  <p>現在時間:{{time}}</p>
+  <h2>Dynamic content</h2>
+  <p>The library has the following record counts:</p>
+  <ul>
+    <li><strong>已記錄病歷:</strong> {{ num_patients }}</li>
+    <li><strong>疾病紀錄種類:</strong> {{ num_illness }}</li>
+    <li><strong>本周約診人數:</strong> {{ num_patient_thisweek }}</li>
+  </ul>
+{% endblock %}
