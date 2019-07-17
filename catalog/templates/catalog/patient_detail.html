@@ -17,7 +17,9 @@ $(document).ready(function(){
 });
 </script>
   <h1> {{ patient}}</h1>
-
+  <p><strong>身高:</strong> {{ patient.height}}</p>
+  <p><strong>體重:</strong> {{ patient.weight}}</p>
+  <p><strong>BMI:</strong> {{ patient.BMI}}</p>
   <p><strong>血型:</strong> {{ patient.bloodtype}}</p>
   <p><strong>生日:</strong> {{ patient.date_of_birth }}</p> 
   <p><strong>下次約診日:</strong> {{ patient.return_date}}</p>  

@@ -3,11 +3,28 @@ from django.urls import reverse #Used to generate URLs by reversing the URL patt
 import datetime
 
 # Create your models here.
+
+
+
+
+
+
 class Illness(models.Model):
     name = models.CharField(max_length = 200,help_text = "輸入疾病名稱")
+    Type = (('severe','重大疾病'),('minor','一般疾病'))
+    selection = models.CharField(choices = Type,max_length = 10,default ='minor',help_text = '請選疾病是否為重症')
 
     def __str__(self):
         return self.name
+
+class Severe_illness_record(models.Model):
+    date = models.DateField(help_text = "發病日期",default = datetime.date.today)
+    patient = models.ForeignKey('Patient',on_delete = models.SET_NULL,null = True,help_text = "病人姓名")
+    illness = models.OneToOneField(Illness,help_text = "重症名稱", on_delete = models.CASCADE)
+
+	
+    def __str__(self):
+        return str(self.patient)+" "+str(self.illness) + " " + str(self.date)
 
 
 class Treatment_record(models.Model):
@@ -26,14 +43,17 @@ class Patient(models.Model):
     name = models.CharField(max_length = 200,help_text = "輸入病人姓名")
     personalid = models.CharField(max_length = 200,help_text = "輸入病人身分證字號")
     bloodtype = models.CharField(max_length = 200,help_text = "輸入病人血型")
+    height = models.PositiveIntegerField(help_text ="輸入病人身高(cm)",default = 180)
+    weight = models.PositiveIntegerField(help_text = "輸入病人體重(kg)",default = 70)
     date_of_birth = models.DateField(help_text = "輸入病人出生年月日")
-    return_date = models.DateField(help_text = "下次約診日期", blank = True, default = datetime.date.today)
-    
-    illness = models.ManyToManyField(Illness,help_text = "請選病人患有什麼疾病")
+    return_date = models.DateField(help_text = "下次約診日期", blank = True, default = datetime.date.today) 
+    illness = models.ManyToManyField(Illness,help_text = "請選病人患有什麼疾病",related_name ="illness")
+    past_illness = models.ManyToManyField(Illness,help_text = "請選病人過去病史",related_name = "past_illness")
 	
-    
+    def BMI(self):
+        return round(float(self.weight)/((float(self.height)/100)** 2),2)   
 	
-    
+
     def __str__(self):
         return (self.name+", ID = "+self.personalid)
 

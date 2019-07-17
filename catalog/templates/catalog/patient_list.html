@@ -1,13 +1,19 @@
 {% extends "base_generic.html" %}
 
+{% load customtag %}
 {% block content %}
   <h1>病歷列表</h1>
+  <form>
+請輸入姓名：<input type="text" name="patient_name" value ={{filterinput|strtype}}>
+</form>
   {% if patient_list %}
   <ul>
     {% for patient in patient_list %}
+	{%if  patient.name|startswith:filterinput %}
       <li>
         <a href="{{ patient.get_absolute_url }}">{{ patient.name }}</a> ({{patient.personalid}})
       </li>
+	 {%endif%}
     {% endfor %}
   </ul>
   {% else %}

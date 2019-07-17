@@ -9,11 +9,11 @@ from catalog.models import Patient, Illness, Treatment_record
 
 # Define the admin class
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ('name', 'personalid', 'date_of_birth')
+    list_display = ('name', 'personalid', 'bloodtype','height','weight','date_of_birth')
     list_filter = ('return_date','illness')
     fieldsets = (
         (None, {
-            'fields': ('name', 'personalid', 'date_of_birth')
+            'fields': ('name', 'personalid','bloodtype','height','weight','date_of_birth')
         }),
         (None, {
             'fields': ('return_date', 'illness')
