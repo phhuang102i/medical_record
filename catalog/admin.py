@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from catalog.models import Patient, Illness, Treatment_record
+from catalog.models import Patient, Illness, Treatment_record,Medication,Severe_illness_record
 
 #admin.site.register(Patient)
 #admin.site.register(Illness)
@@ -9,11 +9,11 @@ from catalog.models import Patient, Illness, Treatment_record
 
 # Define the admin class
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ('name', 'personalid', 'bloodtype','height','weight','date_of_birth')
+    list_display = ('name', 'personalid', 'date_of_birth')
     list_filter = ('return_date','illness')
     fieldsets = (
         (None, {
-            'fields': ('name', 'personalid','bloodtype','height','weight','date_of_birth')
+            'fields': ('name', 'personalid', 'date_of_birth')
         }),
         (None, {
             'fields': ('return_date', 'illness')
@@ -33,4 +33,16 @@ admin.site.register(Illness, IllnessAdmin)
 @admin.register(Treatment_record)
 class Treatment_record_Admin(admin.ModelAdmin):
     list_display = ('date', 'patient')
+	
+class MedicationAdmin(admin.ModelAdmin):
+    pass
+
+# Register the admin class with the associated model
+admin.site.register(Medication, MedicationAdmin)
+
+class Severe_illness_recordAdmin(admin.ModelAdmin):
+    pass
+
+# Register the admin class with the associated model
+admin.site.register(Severe_illness_record, Severe_illness_recordAdmin)
 
