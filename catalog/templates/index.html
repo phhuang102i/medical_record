@@ -9,5 +9,11 @@
     <li><strong>已記錄病歷:</strong> {{ num_patients }}</li>
     <li><strong>疾病紀錄種類:</strong> {{ num_illness }}</li>
     <li><strong>本周約診人數:</strong> {{ num_patient_thisweek }}</li>
+	{% if user.is_authenticated %}
+      <li><strong>本周約診名單:</strong></li>
+	{% for patient in this_week_patient %}
+	<li><a href="{{ patient.get_absolute_url }}">{{patient.name}}</a>, {{patient.personalid}}</li>
+	{% endfor %}
+	{% endif %}
   </ul>
 {% endblock %}
