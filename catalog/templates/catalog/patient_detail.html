@@ -16,7 +16,11 @@ $(document).ready(function(){
   
 });
 </script>
-  <h1> {{ patient}}</h1>
+  <h1> {{ patient}}
+  <font size ="5"><a href ="{{patient.get_update_url}}" > 更改</a>
+  /
+<a href ="{{patient.get_delete_url}}" > 刪除病歷資料</a></font>
+  </h1>
   <p><strong>身高:</strong> {{ patient.height}}</p>
   <p><strong>體重:</strong> {{ patient.weight}}</p>
   <p><strong>BMI:</strong> {{ patient.BMI}}</p>

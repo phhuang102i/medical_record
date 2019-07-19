@@ -13,6 +13,12 @@ class Illness(models.Model):
 
     def __str__(self):
         return self.name
+    def get_absolute_url(self):
+        return reverse('illness-detail',args = [str(self.id)])
+    def get_update_url(self):
+        return reverse('illness_update',args = [str(self.id)])
+    def get_delete_url(self):
+        return reverse('illness_delete',args = [str(self.id)])
     class Meta:
         permissions = (("doctor", "Update or delete"),) 
 class Severe_illness_record(models.Model):
@@ -67,3 +73,8 @@ class Patient(models.Model):
 
     def get_absolute_url(self):
         return reverse('patient-detail',args = [str(self.id)])
+    def get_update_url(self):
+        return reverse('patient_update',args = [str(self.id)])
+    def get_delete_url(self):
+        return reverse('patient_delete',args = [str(self.id)])
+

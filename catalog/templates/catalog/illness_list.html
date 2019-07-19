@@ -8,7 +8,7 @@ $(document).ready(function(){
     $('#input_name').on('input', function() {
         var filter = $('#input_name').val();
         //alert("test");
-	    $(".patient_record").each(function(){
+	    $(".illness_record").each(function(){
 	        if (!($(this).text().startsWith(filter) ))
 		    {
 		        $(this).parent().css("display", "none");
@@ -26,25 +26,23 @@ $(document).ready(function(){
 });
 </script>
 
-  <h1>病歷列表
-  <font size = "5"><a href = "/catalog/patient/create"> 新增一個病歷資料</a></font>
+  <h1>疾病列表
+    <font size = "5"><a href = "/catalog/illness/create"> 新增一個疾病資料</a></font>
   </h1>
 
-請輸入姓名：<input id = "input_name" type="text" name="patient_name" />
+輸入疾病名稱查詢：<input id = "input_name" type="text" name="illness_name" />
 
 
-
-
-  {% if patient_list %}
+  {% if illness_list %}
   <ul>
-    {% for patient in patient_list %}
+    {% for illness in illness_list %}
       <li>
-        <a href="{{ patient.get_absolute_url }}" class ="patient_record">{{ patient.name }}</a> ({{patient.personalid}})
+        <a href="{{ illness.get_absolute_url }}" class ="illness_record">{{ illness.name }}</a> ({{illness.selection}})
 		<br><br>
       </li>
     {% endfor %}
   </ul>
   {% else %}
-    <p>No medical records exist!!</p>
+    <p>No illness records exist!!</p>
   {% endif %}       
 {% endblock %}

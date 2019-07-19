@@ -71,4 +71,32 @@ class PatientDelete(PermissionRequiredMixin,DeleteView):
     permission_required = 'catalog.doctor'
     model = Patient
     success_url = reverse_lazy('patients')
+	
+
+class IllnessListView(PermissionRequiredMixin,generic.ListView):
+    permission_required = 'catalog.doctor'
+    model = Illness
+    paginate_by = 100
+
+	
+class IllnessDetailView(PermissionRequiredMixin,generic.DetailView):
+    permission_required = 'catalog.doctor'
+    model = Illness
+	
+
+class IllnessCreate(PermissionRequiredMixin,CreateView):
+    permission_required = 'catalog.doctor'
+    model = Illness
+    fields = '__all__'
+    #initial = {}
+
+class IllnessUpdate(PermissionRequiredMixin,UpdateView):
+    permission_required = 'catalog.doctor'
+    model = Illness
+    fields = '__all__'
+
+class IllnessDelete(PermissionRequiredMixin,DeleteView):
+    permission_required = 'catalog.doctor'
+    model = Illness
+    success_url = reverse_lazy('illness')
 
