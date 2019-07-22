@@ -30,7 +30,12 @@ $(document).ready(function(){
   <p><strong>病史:</strong> {% for illness in patient.illness.all %} {{ illness }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>  
 
   <div style="margin-left:20px;margin-top:20px">
-    <h4>過去看診紀錄</h4>
+    <h4>過去看診紀錄
+
+	<a id = "create_treatment_record" href = "/catalog/treatment_record/create/{{patient.return_id}}"> 新增一個看診紀錄</a>
+
+	</h4>
+
 
     {% for record in patient.treatment_record_set.all %}
     <hr>

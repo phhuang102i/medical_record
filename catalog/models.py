@@ -43,6 +43,8 @@ class Treatment_record(models.Model):
         permissions = (("doctor", "Update or delete"),)
     def __str__(self):
         return self.treatment_detail
+    def get_create_url(self,patient_id):
+        return reverse('treatment_record_create',args = [str(patient_id)])
 
 class Medication(models.Model):
     name = models.CharField(max_length = 200,help_text = "藥物名稱")
@@ -71,6 +73,8 @@ class Patient(models.Model):
     def __str__(self):
         return (self.name+", ID = "+self.personalid)
 
+    def return_id(self):
+        return self.id
     def get_absolute_url(self):
         return reverse('patient-detail',args = [str(self.id)])
     def get_update_url(self):

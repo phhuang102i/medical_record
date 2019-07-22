@@ -100,3 +100,18 @@ class IllnessDelete(PermissionRequiredMixin,DeleteView):
     model = Illness
     success_url = reverse_lazy('illness')
 
+from django.shortcuts import get_object_or_404
+	
+class Treatment_recordCreate(PermissionRequiredMixin,CreateView):
+    permission_required = 'catalog.doctor'
+    model = Treatment_record
+    patient_id = 1
+    def get_initial(self):
+        patient = get_object_or_404(Patient, id = self.kwargs['patient_id'])
+        return {
+            'patient':patient,
+        }
+ 
+    fields = '__all__'
+
+
