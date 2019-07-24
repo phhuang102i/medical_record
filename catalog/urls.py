@@ -13,5 +13,5 @@ urlpatterns = [
     path('illness/create/', views.IllnessCreate.as_view(), name='illness_create'),
     path('illness/<int:pk>/update/', views.IllnessUpdate.as_view(), name='illness_update'),
     path('illness/<int:pk>/delete/', views.IllnessDelete.as_view(), name='illness_delete'),
-    path('treatment_record/create/<patient_id>', views.Treatment_recordCreate.as_view(), name='treatment_record_create'),
+    path('treatment_record/create/<patient_id>', views.Treatment_recordCreate, name='treatment_record_create'),
 ]

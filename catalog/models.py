@@ -36,7 +36,7 @@ class Severe_illness_record(models.Model):
 class Treatment_record(models.Model):
     treatment_detail = models.TextField(max_length = 400,help_text = "診斷紀錄", blank = True)
     date = models.DateField(help_text = "診斷日期")
-    patient = models.ForeignKey('Patient',on_delete=models.SET_NULL, null=True)
+    patient = models.ForeignKey('Patient',on_delete=models.SET_NULL, null=True, blank = True)
     
     class Meta:
         ordering = ['date']
@@ -54,6 +54,8 @@ class Medication(models.Model):
     freq = models.CharField(choices = freq_type.FreqType.freq_type,max_length = 200,help_text = "請選擇藥物使用頻率")	
     class Meta:
         permissions = (("doctor", "Update or delete"),)	
+
+
 class Patient(models.Model):
     name = models.CharField(max_length = 200,help_text = "輸入病人姓名")
     personalid = models.CharField(max_length = 200,help_text = "輸入病人身分證字號")

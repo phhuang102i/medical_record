@@ -4,7 +4,9 @@
   <form action="" method="post">
     {% csrf_token %}
     <table>
-    {{ form.as_table }}
+    {{ medical_form}}
+    {{ treatment_record_form }}
+
     </table>
     <input type="submit" value="Submit">
   </form>

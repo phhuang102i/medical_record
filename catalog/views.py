@@ -4,6 +4,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 # Create your views here.
 from catalog.models import Patient, Illness, Treatment_record
+from catalog.forms import MedicalForm, TR_Form
+from django.template.context_processors import csrf
 
 def index(request):
     """View function for home page of site."""
@@ -52,7 +54,6 @@ from django.urls import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from catalog.forms import JustAForm
 
 
 
@@ -102,16 +103,43 @@ class IllnessDelete(PermissionRequiredMixin,DeleteView):
 
 from django.shortcuts import get_object_or_404
 	
-class Treatment_recordCreate(PermissionRequiredMixin,CreateView):
-    permission_required = 'catalog.doctor'
-    model = Treatment_record
-    patient_id = 1
-    def get_initial(self):
-        patient = get_object_or_404(Patient, id = self.kwargs['patient_id'])
-        return {
-            'patient':patient,
-        }
- 
-    fields = '__all__'
+#class Treatment_recordCreate(PermissionRequiredMixin,CreateView):
+#    permission_required = 'catalog.doctor'
+#    model = Treatment_record
+#    patient_id = 1
+#    def get_initial(self):
+#        patient = get_object_or_404(Patient, id = self.kwargs['patient_id'])
+#        return {
+#            'patient':patient,
+#        }
+# 
+#    fields = '__all__'
 
+from django.http import HttpResponseRedirect
+def Treatment_recordCreate(request,patient_id):
+
+    patient = get_object_or_404(Patient, id =patient_id)
+
+    if request.method == "POST":
+        medical_form = MedicalForm(request.POST)
+        treatment_record_form = TR_Form(request.POST)
+        
+        if medical_form.is_valid() and treatment_record_form.is_valid():
+            treatment_record = treatment_record_form.save()
+            treatment_record.patient = patient
+            treatment_record.save()
+            medication = medical_form.save(False)
+                
+            medication.treatment = treatment_record
+            medication.save()
+            return HttpResponseRedirect(("/catalog/patient/"+str(patient_id)))
+    else:
+        medical_form = MedicalForm()
+        treatment_record_form = TR_Form()
+    args = {}
+    args.update(csrf(request))
+    args['medical_form'] = medical_form
+    args['treatment_record_form'] = treatment_record_form
+    
+    return render(request, "catalog/treatment_record_form.html",args)
 
