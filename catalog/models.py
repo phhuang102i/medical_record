@@ -21,8 +21,9 @@ class Illness(models.Model):
         return reverse('illness_delete',args = [str(self.id)])
     class Meta:
         permissions = (("doctor", "Update or delete"),) 
+		
 class Severe_illness_record(models.Model):
-    date = models.DateField(help_text = "發病日期",default = datetime.date.today)
+    date = models.DateField(help_text = "病發日期",default = datetime.date.today)
     patient = models.ForeignKey('Patient',on_delete = models.SET_NULL,null = True,help_text = "病人姓名")
     illness = models.OneToOneField(Illness,help_text = "重症名稱", on_delete = models.CASCADE)
     class Meta:
@@ -37,6 +38,7 @@ class Treatment_record(models.Model):
     treatment_detail = models.TextField(max_length = 400,help_text = "診斷紀錄", blank = True)
     date = models.DateField(help_text = "診斷日期")
     patient = models.ForeignKey('Patient',on_delete=models.SET_NULL, null=True, blank = True)
+    illness = models.ManyToManyField(Illness,help_text = "請選病人患有什麼疾病", blank = True)
     
     class Meta:
         ordering = ['date']
@@ -64,10 +66,11 @@ class Patient(models.Model):
     weight = models.PositiveIntegerField(help_text = "輸入病人體重(kg)",default = 70)
     date_of_birth = models.DateField(help_text = "輸入病人出生年月日")
     return_date = models.DateField(help_text = "下次約診日期", blank = True, default = datetime.date.today) 
-    illness = models.ManyToManyField(Illness,help_text = "請選病人患有什麼疾病",related_name ="illness")
-    past_illness = models.ManyToManyField(Illness,help_text = "請選病人過去病史",related_name = "past_illness")
+    illness = models.ManyToManyField(Illness,help_text = "請選病人患有什麼疾病",related_name ="illness",blank = True)
+    past_illness = models.ManyToManyField(Illness,help_text = "請選病人過去病史",related_name = "past_illness",blank = True)
     class Meta:
         permissions = (("doctor", "Update or delete"),)
+        ordering = ['name']
     def BMI(self):
         return round(float(self.weight)/((float(self.height)/100)** 2),2)   
 	

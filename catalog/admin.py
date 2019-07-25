@@ -13,10 +13,10 @@ class PatientAdmin(admin.ModelAdmin):
     list_filter = ('return_date','illness')
     fieldsets = (
         (None, {
-            'fields': ('name', 'personalid', 'date_of_birth')
+            'fields': ('name', 'personalid', 'date_of_birth','height','weight','bloodtype')
         }),
         (None, {
-            'fields': ('return_date', 'illness')
+            'fields': ('return_date', 'illness','past_illness')
         }),
     )
 

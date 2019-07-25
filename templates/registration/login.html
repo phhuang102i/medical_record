@@ -1,6 +1,9 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 
 {% if form.errors %}
   <p>Your username and password didn't match. Please try again.</p>
@@ -20,15 +23,17 @@
 
 <div>
   <td>{{ form.username.label_tag }}</td>
-  <td>{{ form.username }}</td>
+  <td>{{ form.username}}</td>
 </div>
 <div>
   <td>{{ form.password.label_tag }}</td>
   <td>{{ form.password }}</td>
+  
 </div>
 
 <div>
-  <input type="submit" value="login" />
+
+  <button class="btn  btn-primary " type="submit" value = "login" align ="right">Sign in</button>
   <input type="hidden" name="next" value="{{ next }}" />
 </div>
 </form>

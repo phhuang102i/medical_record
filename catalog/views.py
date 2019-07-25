@@ -3,7 +3,7 @@ import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 # Create your views here.
-from catalog.models import Patient, Illness, Treatment_record
+from catalog.models import Patient, Illness, Treatment_record, Severe_illness_record, Medication
 from catalog.forms import MedicalForm, TR_Form
 from django.template.context_processors import csrf
 
@@ -125,6 +125,7 @@ def Treatment_recordCreate(request,patient_id):
         treatment_record_form = TR_Form(request.POST)
         
         if medical_form.is_valid() and treatment_record_form.is_valid():
+            #medication and treatment_record instance save
             treatment_record = treatment_record_form.save()
             treatment_record.patient = patient
             treatment_record.save()
@@ -132,6 +133,16 @@ def Treatment_recordCreate(request,patient_id):
                 
             medication.treatment = treatment_record
             medication.save()
+			# update past_illness and create severe_illness_record if needed
+            lst = treatment_record.illness.all()
+
+            for illness_record in lst:
+               if illness_record.selection == 'severe':
+                   record = Severe_illness_record(illness = illness_record, date = treatment_record.date, patient = treatment_record.patient)
+                   record.save()
+                   if illness_record not in patient.past_illness.all():
+                       patient.past_illness.add(illness_record)
+		
             return HttpResponseRedirect(("/catalog/patient/"+str(patient_id)))
     else:
         medical_form = MedicalForm()
