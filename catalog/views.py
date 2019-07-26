@@ -3,7 +3,7 @@ import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 # Create your views here.
-from catalog.models import Patient, Illness, Treatment_record, Severe_illness_record, Medication
+from catalog.models import Patient, Illness, Treatment_record, Severe_illness_record, Medication, Inspection_report
 from catalog.forms import MedicalForm, TR_Form
 from django.template.context_processors import csrf
 
@@ -139,7 +139,9 @@ def Treatment_recordCreate(request,patient_id):
             for illness_record in lst:
                if illness_record.selection == 'severe':
                    record = Severe_illness_record(illness = illness_record, date = treatment_record.date, patient = treatment_record.patient)
-                   record.save()
+                   recordlst =   [k.illness.name for k in Severe_illness_record.objects.filter(patient__name = treatment_record.patient.name)]
+                   if record.illness.name not in recordlst:
+                       record.save()
                    if illness_record not in patient.past_illness.all():
                        patient.past_illness.add(illness_record)
 		
@@ -153,4 +155,25 @@ def Treatment_recordCreate(request,patient_id):
     args['treatment_record_form'] = treatment_record_form
     
     return render(request, "catalog/treatment_record_form.html",args)
+	
+class Inspection_reportListView(PermissionRequiredMixin,generic.ListView):
+    permission_required = 'catalog.doctor'
+    model = Inspection_report
+    paginate_by = 15
+
+class Inspection_reportCreate(PermissionRequiredMixin,CreateView):
+    permission_required = 'catalog.doctor'
+    model = Inspection_report
+    fields = '__all__'
+    #initial = {}
+
+class Inspection_reportUpdate(PermissionRequiredMixin,UpdateView):
+    permission_required = 'catalog.doctor'
+    model = Inspection_report
+    fields = '__all__'
+
+class Inspection_reportDelete(PermissionRequiredMixin,DeleteView):
+    permission_required = 'catalog.doctor'
+    model = Inspection_report
+    success_url = reverse_lazy('inspection_report')
 

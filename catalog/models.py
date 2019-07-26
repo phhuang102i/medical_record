@@ -87,3 +87,26 @@ class Patient(models.Model):
     def get_delete_url(self):
         return reverse('patient_delete',args = [str(self.id)])
 
+		
+class Inspection_report(models.Model):
+    patient = models.ForeignKey('Patient',on_delete = models.SET_NULL,null = True,help_text = "病人姓名")
+    date = models.DateField(help_text = "檢查日期")
+	
+    Glu_Ac = models.PositiveIntegerField(help_text ="mg/dl")
+    AST= models.PositiveIntegerField(help_text ="IU/L")
+    ALT= models.PositiveIntegerField(help_text ="IU/L")
+    CHO= models.PositiveIntegerField(help_text ="mg/dl")
+    TG= models.PositiveIntegerField(help_text ="mg/dl")
+    HDL= models.PositiveIntegerField(help_text ="mg/dl")
+    BUN= models.PositiveIntegerField(help_text ="mg/dl")
+    Cre= models.PositiveIntegerField(help_text ="mg/dl")
+    UA= models.PositiveIntegerField(help_text ="mg/dl")
+    CA= models.PositiveIntegerField(help_text ="mg/dl")
+    LDH= models.PositiveIntegerField(help_text ="mmol/L")
+    CK= models.PositiveIntegerField(help_text ="mmol/L")
+    AMY= models.PositiveIntegerField(help_text ="mmol/L")
+    Na= models.PositiveIntegerField(help_text ="mmol/L")
+    K = models.PositiveIntegerField(help_text ="mmol/L")
+
+    def __str__(self):
+        return (self.patient.name)
