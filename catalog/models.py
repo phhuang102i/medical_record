@@ -25,7 +25,7 @@ class Illness(models.Model):
 class Severe_illness_record(models.Model):
     date = models.DateField(help_text = "病發日期",default = datetime.date.today)
     patient = models.ForeignKey('Patient',on_delete = models.SET_NULL,null = True,help_text = "病人姓名")
-    illness = models.OneToOneField(Illness,help_text = "重症名稱", on_delete = models.CASCADE)
+    illness = models.ForeignKey('Illness',help_text = "重症名稱", on_delete = models.CASCADE)
     class Meta:
         permissions = (("doctor", "Update or delete"),)
         

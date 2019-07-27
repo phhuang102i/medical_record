@@ -3,9 +3,9 @@
 {% block content %}
 
 
-  <h1> {{ illness}}    <font size ="5"><a href ="{{illness.get_update_url}}" > 更改</a>
+  <h1> {{ illness}}    <font size ="5"><a class = "create_update_del" href ="{{illness.get_update_url}}" > 更改</a>
   /
-<a href ="{{illness.get_delete_url}}" > 刪除疾病資料</a></font>
+<a class = "create_update_del" href ="{{illness.get_delete_url}}" > 刪除疾病資料</a></font>
   </h1>
   <p><strong>疾病種類:</strong> {{ illness.selection}}</p>
   

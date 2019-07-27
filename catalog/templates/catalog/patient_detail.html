@@ -17,9 +17,9 @@ $(document).ready(function(){
 });
 </script>
   <h1> {{ patient}}
-  <font size ="5"><a href ="{{patient.get_update_url}}" > 更改</a>
+  <font size ="5"><a class = "create_update_del" href ="{{patient.get_update_url}}" > 更改</a>
   /
-<a href ="{{patient.get_delete_url}}" > 刪除病歷資料</a></font>
+<a class = "create_update_del" href ="{{patient.get_delete_url}}" > 刪除病歷資料</a></font>
   </h1>
     <br></br>
   <p><strong>身高:</strong> {{ patient.height}}</p>
@@ -29,19 +29,20 @@ $(document).ready(function(){
   <p><strong>生日:</strong> {{ patient.date_of_birth }}</p> 
   <p><strong>下次約診日:</strong> {{ patient.return_date}}</p>  
   <p><strong>現在病史:</strong> {% for illness in patient.illness.all %} {{ illness }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-  <p><strong>過去病史:</strong> {% for illness in patient.past_illness.all %} {{ illness }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>  
+  <p><strong>過去病史:</strong> {% for illness in patient.past_illness.all %} {{ illness }}{% if not forloop.last %}, {% endif %}{% endfor %}</p> 
+  <hr color = "black">  
 
   <div style="margin-left:20px;margin-top:20px">
     <h4>過去看診紀錄
 
-	<a id = "create_treatment_record" href = "/catalog/treatment_record/create/{{patient.return_id}}"> 新增一個看診紀錄</a>
+	<a class = "create_update_del" id = "create_treatment_record" href = "/catalog/treatment_record/create/{{patient.return_id}}"> 新增一個看診紀錄</a>
 
 	</h4>
 
 
     {% for record in patient.treatment_record_set.all %}
     <hr>
-	<p id ="flip_{{forloop.counter}}" class = "Record"><strong>{{ record.date }}</strong></p><!--link to each record... not yet defined -->
+	<p id ="flip_{{forloop.counter}}" class = "Record"><strong>{{ record.date }} <i class="arrow down"></i></strong></p><!--link to each record... not yet defined -->
 	<p id = "detail_{{forloop.counter}}" style="display: none;">{{record.treatment_detail	}}</p>
 	
 	
