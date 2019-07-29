@@ -2,11 +2,22 @@
 
 {% block content %}
 {% load crispy_forms_tags %}
+<script>
+$(document).ready(function(){
+    $("#add_med").click(function(){
+        var addmed_html = 	"<div class =" +'"' + "form-row" +'"' +">" + "<div class =" +'"' + "form-group col-md-4 mb-0" +'"' +">" + "{" + "{medical_form.name|as_crispy_field}" +"}</div>" +"<div class =" +'"' + "form-group col-md-4 mb-0" +'"' +">" +'{'+ "{medical_form.duration|as_crispy_field}" +"}</div>" + "<div class =" +'"' + "form-group col-md-4 mb-0" +'"' +">" +'{'+ "{medical_form.freq|as_crispy_field}" +"}</div></div>";
+		
+	});
+});
+</script>
 
 
   <form action="" method="post">
 
     {% csrf_token %}
+	{{medical_form_set.management_form}}
+
+	{% for medical_form in medical_form_set %}
 
 	<div class = "form-row">
 	    <div class = "form-group col-md-4 mb-0">
@@ -20,9 +31,15 @@
 		</div>
 	</div>
 
+	{% endfor %}
+
+    
+
     {{ treatment_record_form|crispy }}
 
 
  <button type="submit" class="btn btn-primary">Submit</button>
   </form>
+  
 {% endblock %}
+

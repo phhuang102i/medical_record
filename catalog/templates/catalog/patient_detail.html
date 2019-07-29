@@ -43,7 +43,7 @@ $(document).ready(function(){
     {% for record in patient.treatment_record_set.all %}
     <hr>
 	<p id ="flip_{{forloop.counter}}" class = "Record"><strong>{{ record.date }} <i class="arrow down"></i></strong></p><!--link to each record... not yet defined -->
-	<p id = "detail_{{forloop.counter}}" style="display: none;">{{record.treatment_detail	}}</p>
+	<p id = "detail_{{forloop.counter}}" style="display: none;">{{record.treatment_detail	}}<br>{% for med in record.medication_set.all %} {{med}} ;{% endfor %}</p>
 	
 	
     {% endfor %}

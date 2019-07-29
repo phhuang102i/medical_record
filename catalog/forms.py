@@ -1,7 +1,8 @@
 import datetime
 
 from django import forms
-
+from searchableselect.widgets import SearchableSelect
+from django.forms import modelformset_factory
 
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
@@ -13,8 +14,7 @@ class MedicalForm(forms.ModelForm):
 
         fields =  ('name', 'duration', 'freq')
 
-
-
+MedicationFormSet = modelformset_factory(Medication, form=MedicalForm, extra = 3)
 
 class TR_Form(forms.ModelForm):
 
@@ -22,7 +22,7 @@ class TR_Form(forms.ModelForm):
         model = Treatment_record
         exclude = ('patient',)
         widgets = {
-            
+            'illness': SearchableSelect(model='Illness', search_field='name', many = True)
         }
-        
+
      #   fields = '__all__'

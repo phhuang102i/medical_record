@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 # Create your views here.
 from catalog.models import Patient, Illness, Treatment_record, Severe_illness_record, Medication, Inspection_report
-from catalog.forms import MedicalForm, TR_Form
+from catalog.forms import MedicalForm, TR_Form,MedicationFormSet
 from django.template.context_processors import csrf
 
 def index(request):
@@ -119,20 +119,25 @@ from django.http import HttpResponseRedirect
 def Treatment_recordCreate(request,patient_id):
 
     patient = get_object_or_404(Patient, id =patient_id)
-
-    if request.method == "POST":
-        medical_form = MedicalForm(request.POST)
+    if request.method == 'GET':
+        treatment_record_form = TR_Form(request.GET or None)
+        medical_form_set = MedicationFormSet(queryset=Medication.objects.none())
+    elif request.method == "POST":
+        medical_form_set = MedicationFormSet(request.POST)
+        #medical_form = MedicalForm(request.POST)
         treatment_record_form = TR_Form(request.POST)
         
-        if medical_form.is_valid() and treatment_record_form.is_valid():
+        if medical_form_set.is_valid() and treatment_record_form.is_valid():
             #medication and treatment_record instance save
             treatment_record = treatment_record_form.save()
             treatment_record.patient = patient
             treatment_record.save()
-            medication = medical_form.save(False)
-                
-            medication.treatment = treatment_record
-            medication.save()
+			
+            for medical_form in medical_form_set:
+                medication = medical_form.save(False)    
+                medication.treatment = treatment_record
+                if len(medication.name) > 0:
+                    medication.save()
 			# update past_illness and create severe_illness_record if needed
             lst = treatment_record.illness.all()
 
@@ -147,11 +152,11 @@ def Treatment_recordCreate(request,patient_id):
 		
             return HttpResponseRedirect(("/catalog/patient/"+str(patient_id)))
     else:
-        medical_form = MedicalForm()
+        medical_form_set = MedicationFormSet()
         treatment_record_form = TR_Form()
     args = {}
     args.update(csrf(request))
-    args['medical_form'] = medical_form
+    args['medical_form_set'] = medical_form_set
     args['treatment_record_form'] = treatment_record_form
     
     return render(request, "catalog/treatment_record_form.html",args)
@@ -178,6 +183,9 @@ class Inspection_reportDelete(PermissionRequiredMixin,DeleteView):
     success_url = reverse_lazy('inspection_report')
 	
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+
+
+
 
 
 

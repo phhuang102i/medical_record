@@ -18,6 +18,5 @@ urlpatterns = [
     path('inspection_report/create/', views.Inspection_reportCreate.as_view(), name='inspection_report_create'),
     path('inspection_report/<int:pk>/update/', views.Inspection_reportUpdate.as_view(), name='inspection_report_update'),
     path('inspection_report/<int:pk>/delete/', views.Inspection_reportDelete.as_view(), name='inspection_report_delete'),
-  #  path('illness-autocomplete/',views.IllnessAutocomplete,name='illness-autocomplete'),
 
 ]
