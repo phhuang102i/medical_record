@@ -56,6 +56,8 @@ class Medication(models.Model):
     freq = models.CharField(choices = freq_type.FreqType.freq_type,max_length = 200,help_text = "請選擇藥物使用頻率")	
     class Meta:
         permissions = (("doctor", "Update or delete"),)	
+    def __str__(self):
+        return self.name
 
 
 class Patient(models.Model):
@@ -66,7 +68,7 @@ class Patient(models.Model):
     weight = models.PositiveIntegerField(help_text = "輸入病人體重(kg)",default = 70)
     date_of_birth = models.DateField(help_text = "輸入病人出生年月日")
     return_date = models.DateField(help_text = "下次約診日期", blank = True, default = datetime.date.today) 
-    illness = models.ManyToManyField(Illness,help_text = "請選病人患有什麼疾病",related_name ="illness",blank = True)
+    allergy = models.ManyToManyField(Medication,help_text = "過敏史",related_name ="allergy",blank = True)
     past_illness = models.ManyToManyField(Illness,help_text = "請選病人過去病史",related_name = "past_illness",blank = True)
     class Meta:
         permissions = (("doctor", "Update or delete"),)

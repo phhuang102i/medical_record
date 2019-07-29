@@ -1,7 +1,8 @@
 import datetime
 
 from django import forms
-from betterforms.forms import BetterForm,BetterModelForm
+
+
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from catalog.models import Patient, Illness, Treatment_record, Medication, Severe_illness_record
@@ -20,5 +21,8 @@ class TR_Form(forms.ModelForm):
     class Meta:
         model = Treatment_record
         exclude = ('patient',)
-
+        widgets = {
+            
+        }
+        
      #   fields = '__all__'

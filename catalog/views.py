@@ -176,4 +176,8 @@ class Inspection_reportDelete(PermissionRequiredMixin,DeleteView):
     permission_required = 'catalog.doctor'
     model = Inspection_report
     success_url = reverse_lazy('inspection_report')
+	
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+
+
 
