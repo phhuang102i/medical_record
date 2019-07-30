@@ -1,0 +1,100 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+  <h1> {{inspection_report}}
+  <font size ="5"><a class = "create_update_del" href ="{{inspection_report.get_update_url}}" > 更改</a>
+  /
+<a class = "create_update_del" href ="{{inspection_report.get_delete_url}}" > 刪除檢查報告</a></font>
+  </h1>
+    <br></br>
+     
+<div class="container">       
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-info">
+                現在時間: {{time}}</div>
+            <div class="alert alert-success" style="display:none;">
+                <span class="glyphicon glyphicon-ok"></span> Drag table row and cange Order</div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Column heading
+                        </th>
+                        <th>
+                            Column heading
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-active">
+                        <td>
+                            Glu_Ac: {{inspection_report.Glu_Ac}}
+                        </td>
+                        <td>
+                            AST: {{inspection_report.AST   }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ALT: {{inspection_report.ALT   }}
+                        </td>
+                        <td>
+                            CHO: {{inspection_report.CHO   }}
+                        </td>
+                    </tr>
+                    <tr class="table-success">
+                        <td>
+                            TG: {{inspection_report.TG    }}
+                        </td>
+                        <td>
+                            HDL: {{inspection_report.HDL   }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            BUN: {{inspection_report.BUN   }}
+                        </td>
+                        <td>
+                            Cre: {{inspection_report.Cre   }}
+                        </td>
+                    </tr>
+                    <tr class="table-warning">
+                        <td>
+                            UA: {{inspection_report.UA    }}
+                        </td>
+                        <td>
+                            CA: {{inspection_report.CA    }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            LDH: {{inspection_report.LDH   }}
+                        </td>
+                        <td>
+                            CK: {{inspection_report.CK    }}
+                        </td>
+                    </tr>
+                    <tr class="table-danger">
+                        <td>
+                            AMY: {{inspection_report.AMY   }}
+                        </td>
+                        <td>
+                            Na: {{inspection_report.Na    }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            K: {{inspection_report.K   }}
+                        </td>
+                        <td>
+                           
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

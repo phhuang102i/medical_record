@@ -2,13 +2,13 @@
 
 {% block content %}
 {% load crispy_forms_tags %}
-<script>
-$(document).ready(function(){
-    $("#add_med").click(function(){
-        var addmed_html = 	"<div class =" +'"' + "form-row" +'"' +">" + "<div class =" +'"' + "form-group col-md-4 mb-0" +'"' +">" + "{" + "{medical_form.name|as_crispy_field}" +"}</div>" +"<div class =" +'"' + "form-group col-md-4 mb-0" +'"' +">" +'{'+ "{medical_form.duration|as_crispy_field}" +"}</div>" + "<div class =" +'"' + "form-group col-md-4 mb-0" +'"' +">" +'{'+ "{medical_form.freq|as_crispy_field}" +"}</div></div>";
-		
-	});
-});
+{% load static %}
+<script src="{% static 'jquery.formset.js' %}"></script>
+
+<script type="text/javascript">
+    $(function() {
+        $('.form-row').formset();
+    })
 </script>
 
 
@@ -19,7 +19,7 @@ $(document).ready(function(){
 
 	{% for medical_form in medical_form_set %}
 
-	<div class = "form-row">
+	<div class = "form-row" >
 	    <div class = "form-group col-md-4 mb-0">
 		{{medical_form.name|as_crispy_field}}
 		</div>

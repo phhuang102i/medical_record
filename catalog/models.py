@@ -35,13 +35,13 @@ class Severe_illness_record(models.Model):
 
 
 class Treatment_record(models.Model):
-    treatment_detail = models.TextField(max_length = 400,help_text = "診斷紀錄", blank = True)
+    treatment_detail = models.TextField(default = "S:\nO:\nP:",max_length = 400,help_text = "診斷紀錄", blank = True)
     date = models.DateField(help_text = "診斷日期")
     patient = models.ForeignKey('Patient',on_delete=models.SET_NULL, null=True, blank = True)
     illness = models.ManyToManyField(Illness,help_text = "請選病人患有什麼疾病", blank = True)
     
     class Meta:
-        ordering = ['date']
+        ordering = ['-date']
         permissions = (("doctor", "Update or delete"),)
     def __str__(self):
         return self.treatment_detail
@@ -111,4 +111,14 @@ class Inspection_report(models.Model):
     K = models.PositiveIntegerField(help_text ="mmol/L")
 
     def __str__(self):
-        return (self.patient.name)
+        return str(self.patient.name) +", date : " + str(self.date)
+		
+    def get_absolute_url(self):
+        return reverse('inspection-report-detail',args = [str(self.id)])
+    def get_update_url(self):
+        return reverse('inspection_report_update',args = [str(self.id)])
+    def get_delete_url(self):
+        return reverse('inspection_report_delete',args = [str(self.id)])
+		
+    class Meta:
+        ordering = ['date']        

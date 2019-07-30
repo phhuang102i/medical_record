@@ -14,7 +14,7 @@ class MedicalForm(forms.ModelForm):
 
         fields =  ('name', 'duration', 'freq')
 
-MedicationFormSet = modelformset_factory(Medication, form=MedicalForm, extra = 3)
+MedicationFormSet = modelformset_factory(Medication, form=MedicalForm, extra = 1)
 
 class TR_Form(forms.ModelForm):
 

@@ -121,6 +121,10 @@ def Treatment_recordCreate(request,patient_id):
     patient = get_object_or_404(Patient, id =patient_id)
     if request.method == 'GET':
         treatment_record_form = TR_Form(request.GET or None)
+        if Treatment_record.objects.filter(patient__name = patient.name).count() != 0:
+            treatment_record_form['treatment_detail'].initial = Treatment_record.objects.filter(patient__name = patient.name).last()
+        else:
+            treatment_record_form['treatment_detail'].initial ="S:\nO:\nP:"
         medical_form_set = MedicationFormSet(queryset=Medication.objects.none())
     elif request.method == "POST":
         medical_form_set = MedicationFormSet(request.POST)
@@ -181,6 +185,23 @@ class Inspection_reportDelete(PermissionRequiredMixin,DeleteView):
     permission_required = 'catalog.doctor'
     model = Inspection_report
     success_url = reverse_lazy('inspection_report')
+	
+class Inspection_reportListView(PermissionRequiredMixin,generic.ListView):
+    permission_required = 'catalog.doctor'
+    model = Inspection_report
+    paginate_by = 100
+
+	
+class Inspection_reportDetailView(PermissionRequiredMixin,generic.DetailView):
+    permission_required = 'catalog.doctor'
+    model = Inspection_report
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['time'] = datetime.datetime.now()
+        return context
+	
 	
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 

@@ -1,0 +1,51 @@
+{% extends "base_generic.html" %}
+
+{% load customtag %}
+{% block content %}
+
+<script>
+$(document).ready(function(){
+    $('#input_name').on('input', function() {
+        var filter = $('#input_name').val();
+        //alert("test");
+	    $(".inspection_report_record").each(function(){
+	        if (!($(this).text().startsWith(filter) ))
+		    {
+		        $(this).parent().css("display", "none");
+				//alert($(this).text())
+		    }
+		    else
+		    {
+		        $(this).parent().css("display", "block");
+		    }
+			//alert($(this).text().startsWith(filter));
+	
+    	});
+		//alert(filter);
+   });
+});
+</script>
+
+  <h1>檢驗報告
+  <font size = "5" color = "#3366ff"><a href = "/catalog/inspection_report/create"> 新增一個檢驗報告</a></font>
+  </h1>
+
+輸入姓名查詢：<input id = "input_name" type="text" name="report_name" />
+<br></br>
+
+
+
+
+  {% if inspection_report_list %}
+  <ul>
+    {% for report in inspection_report_list %}
+      <li>
+        <a href="{{ report.get_absolute_url }}" class ="inspection_report_record">{{ report }}</a> 
+		<br><br>
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>No medical records exist!!</p>
+  {% endif %}       
+{% endblock %}
