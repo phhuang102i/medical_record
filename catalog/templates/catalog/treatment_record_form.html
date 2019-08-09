@@ -3,6 +3,7 @@
 {% block content %}
 {% load crispy_forms_tags %}
 {% load static %}
+{{treatment_record_form.media}}
 <script src="{% static 'jquery.formset.js' %}"></script>
 
 <script type="text/javascript">
@@ -15,23 +16,23 @@
   <form action="" method="post">
 
     {% csrf_token %}
-	{{medical_form_set.management_form}}
+  {{medical_form_set.management_form}}
 
-	{% for medical_form in medical_form_set %}
+  {% for medical_form in medical_form_set %}
 
-	<div class = "form-row" >
-	    <div class = "form-group col-md-4 mb-0">
-		{{medical_form.name|as_crispy_field}}
-		</div>
-	    <div class = "form-group col-md-4 mb-0">
-		{{medical_form.duration|as_crispy_field}}
-		</div>
-		<div class = "form-group col-md-4 mb-0">
-		{{medical_form.freq|as_crispy_field}}
-		</div>
-	</div>
+  <div class = "form-row" >
+      <div class = "form-group col-md-4 mb-0">
+    {{medical_form.name|as_crispy_field}}
+    </div>
+      <div class = "form-group col-md-4 mb-0">
+    {{medical_form.duration|as_crispy_field}}
+    </div>
+    <div class = "form-group col-md-4 mb-0">
+    {{medical_form.freq|as_crispy_field}}
+    </div>
+  </div>
 
-	{% endfor %}
+  {% endfor %}
 
     
 
@@ -42,4 +43,3 @@
   </form>
   
 {% endblock %}
-

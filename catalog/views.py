@@ -204,7 +204,22 @@ class Inspection_reportDetailView(PermissionRequiredMixin,generic.DetailView):
 	
 	
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+import simplejson as json
 
+from dal import autocomplete
+
+
+class IllnessAutocomplete(PermissionRequiredMixin,autocomplete.Select2QuerySetView):
+    permission_required = 'catalog.doctor'
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+
+        qs = Illness.objects.all()
+
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+
+        return qs
 
 
 
