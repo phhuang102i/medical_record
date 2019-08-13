@@ -119,6 +119,6 @@ class Inspection_report(models.Model):
         return reverse('inspection_report_update',args = [str(self.id)])
     def get_delete_url(self):
         return reverse('inspection_report_delete',args = [str(self.id)])
-		
+
     class Meta:
         ordering = ['date']        

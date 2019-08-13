@@ -1,6 +1,8 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+{% load static %}
+<script src="{% static 'TestInRange.js' %}"></script>
 
   <h1> {{inspection_report}}
   <font size ="5"><a class = "create_update_del" href ="{{inspection_report.get_update_url}}" > 更改</a>
@@ -17,9 +19,9 @@
             <div class="alert alert-success" style="display:none;">
                 <span class="glyphicon glyphicon-ok"></span> Drag table row and cange Order</div>
             <table class="table">
-                <thead>
+                <thead class = "thead-dark">
                     <tr>
-                        <th>
+                        <th >
                             Column heading
                         </th>
                         <th>
@@ -28,67 +30,67 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="table-active">
-                        <td>
+                    <tr >
+                        <td id ="glu_ac">
                             Glu_Ac: {{inspection_report.Glu_Ac}}
                         </td>
-                        <td>
+                        <td id ="ast">
                             AST: {{inspection_report.AST   }}
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td id ="alt">
                             ALT: {{inspection_report.ALT   }}
                         </td>
-                        <td>
+                        <td id ="cho">
                             CHO: {{inspection_report.CHO   }}
                         </td>
                     </tr>
-                    <tr class="table-success">
-                        <td>
+                    <tr >
+                        <td id ="tg">
                             TG: {{inspection_report.TG    }}
                         </td>
-                        <td>
+                        <td id ="hdl">
                             HDL: {{inspection_report.HDL   }}
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td id ="bun">
                             BUN: {{inspection_report.BUN   }}
                         </td>
-                        <td>
+                        <td id ="cre">
                             Cre: {{inspection_report.Cre   }}
                         </td>
                     </tr>
-                    <tr class="table-warning">
-                        <td>
+                    <tr >
+                        <td id ="ua">
                             UA: {{inspection_report.UA    }}
                         </td>
-                        <td>
+                        <td id ="ca">
                             CA: {{inspection_report.CA    }}
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td id ="ldh">
                             LDH: {{inspection_report.LDH   }}
                         </td>
-                        <td>
+                        <td id ="ck">
                             CK: {{inspection_report.CK    }}
                         </td>
                     </tr>
-                    <tr class="table-danger">
-                        <td>
+                    <tr >
+                        <td id ="amy">
                             AMY: {{inspection_report.AMY   }}
                         </td>
-                        <td>
+                        <td id ="na">
                             Na: {{inspection_report.Na    }}
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td id ="k">
                             K: {{inspection_report.K   }}
                         </td>
-                        <td>
+                        <td >
                            
                         </td>
                     </tr>
@@ -97,4 +99,9 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(function() {
+    test_inrange();
+    })
+</script>
 {% endblock %}
