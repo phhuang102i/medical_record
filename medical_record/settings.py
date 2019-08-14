@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'catalog',
     'searchableselect',
+    'widget_tweaks',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

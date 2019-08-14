@@ -21,7 +21,7 @@ from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url
-from catalog.views import IllnessAutocomplete
+from catalog.views import IllnessAutocomplete, search
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -47,5 +47,9 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
     url(r'^api/illness-autocomplete/$', IllnessAutocomplete.as_view(), name='illness-autocomplete'),
+]
+
+urlpatterns += [
+     url(r'^search/$', search, name='search'),
 ]
 
